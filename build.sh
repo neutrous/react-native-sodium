@@ -1,8 +1,8 @@
 #!/bin/bash
 
-sha512sumfile=`ls -1 libsodium-*.tar.gz.sha512sum`
+sha512sumfile=`ls -1 libsodium-*-stable.tar.gz.sha512sum`
 srcfile=`basename $sha512sumfile .sha512sum`
-srcdir=`basename $srcfile .tar.gz`
+srcdir=`libsodium-stable`
 
 # --------------------------
 # Download and verify source
@@ -28,7 +28,7 @@ do
   # --------------------------
   platform=`uname`
   if [ "$platform" == 'Darwin' ] && [ "$targetPlatform" == 'ios' ]; then
-    IOS_VERSION_MIN=6.0 dist-build/ios.sh
+    IOS_VERSION_MIN=6.0 dist-build/apple-xcframework.sh
   fi
 
   # --------------------------
@@ -67,8 +67,8 @@ do
   mv $dir libsodium/
 done
 
-if [ "$platform" == 'Darwin' ] && [ -e $srcdir/libsodium-ios ]; then
-  mv $srcdir/libsodium-ios libsodium/
+if [ "$platform" == 'Darwin' ] && [ -e $srcdir/libsodium-apple ]; then
+  mv $srcdir/libsodium-apple libsodium/
 fi
 
 
